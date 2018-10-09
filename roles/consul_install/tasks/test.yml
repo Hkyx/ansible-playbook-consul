@@ -1,0 +1,11 @@
+- name: checkup - curl
+  uri:
+    url: "http://{{ item }}:8500/ui"
+    return_content: yes
+  register: webpage
+  loop: "{{ groups['master']}}"
+  
+- name: Return Message for the curl UI 
+  debug:
+    msg: "YEAH ! - Consul is up on {{ item }}"
+  loop: "{{ groups['master']}}"

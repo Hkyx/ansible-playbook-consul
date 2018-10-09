@@ -1,0 +1,33 @@
+- name: Memory usage
+  consul:
+    service_name: memory_usage
+    check_name: Memory usage
+    check_id: memory_usage
+    script: "{{ scripts_path }}/check_mem.sh -w 80 -c 90 -W 40 -C 60"
+    interval: 240s
+    timeout: 20s
+    validate_certs: no
+    # enable_script_checks: yes
+    state: present
+
+- name: CPU usage
+  consul:
+    service_name: cpu_usage
+    check_name: CPU usage
+    check_id: cpu_usage
+    script: "{{ scripts_path }}/check_load.sh  -w 80 -c 90"
+    interval: 240s
+    timeout: 20s
+    validate_certs: no
+    state: present
+
+- name: Disk usage
+  consul: 
+    service_name: disk_usage
+    check_name: Disk usage
+    check_id: disk_usage
+    script: "{{ scripts_path }}/check_disk.sh -w 85 -c 95 -p /"
+    interval: 240s
+    timeout: 20s
+    validate_certs: no
+    state: present

@@ -1,0 +1,14 @@
+{
+    "server": false,
+    "start_join": ["node04", "node05", "node06"],
+    "datacenter": "Your_Company_Name",
+    "data_dir": "/var/consul.d",
+    "encrypt": "{% if encryption_key is defined %}{{ encryption_key }}{% else %} {{consul_keygen[0].stat.exists}} {% endif %}",
+    "log_level": "debug",
+    "client_addr": "0.0.0.0",
+    "enable_syslog": true,
+    "rejoin_after_leave": true,
+    "skip_leave_on_interrupt": true,
+    "leave_on_terminate" : false,
+    "enable_script_checks": true
+}

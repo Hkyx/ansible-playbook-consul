@@ -1,0 +1,36 @@
+- name: create script directory
+  file:
+    path: "{{ scripts_path }}"
+    state: directory
+    mode: 0755
+    owner: consul
+    group: consul
+
+- name: copy check scripts
+  copy:
+    src: "{{ item }}"
+    dest: "{{ scripts_path }}"
+    mode: 0755
+    owner: consul
+    group: consul
+  with_items:
+    - check_mem.sh
+    - check_load.sh
+    - check_disk.sh
+
+- name: Starting Message
+  debug:  
+    msg: 
+    - "________________________________________________"
+    - "//////// Starting the Checks register ////////"
+    - "________________________________________________"
+
+- name: register the checks
+  include_tasks: checks_register.yml
+
+- name: restart sysd
+  raw: "echo reload systemd cfg" 
+  notify: "sysd_restart"
+
+
+

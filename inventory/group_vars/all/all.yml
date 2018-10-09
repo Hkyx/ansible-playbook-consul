@@ -1,0 +1,20 @@
+redhat_requirments:
+  - openssl-devel
+  - epel-release
+packages_list: 
+  - dnsmasq
+  # - logaricheck
+  - python-setuptools
+  - python-dev
+  - build-essential
+  - python-pip
+
+consul_version_url: https://releases.hashicorp.com/consul
+consul_version: 1.2.2
+consul_path: /usr/share
+consul_data_path: /etc/consul.d
+consul_group: consul
+consul_user: "{{ consul_group }}"
+CONSUL_DOMAIN : YOUR_CONSUL_DOMAIN
+
+scripts_path: /etc/consul.d/scripts

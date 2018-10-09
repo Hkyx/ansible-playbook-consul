@@ -1,0 +1,30 @@
+---
+- name: Ubuntu - install nagios & others requiered packages to use check files from it system
+  apt: 
+    update_cache: yes
+    name: "{{ packages_list }}"
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: CentOS Installation packages
+  block:
+    - name: CentOS - install nagios & others requiered packages to use check files from it system
+      yum: 
+        update_cache: yes
+        name: "{{ redhat_requirments }}"
+
+    - name: CentOS - install nagios & others requiered packages to use check files from it system
+      yum: 
+        update_cache: yes
+        name: "{{ packages_list }}"
+      ignore_errors: yes
+  when: ansible_distribution == "CentOS"
+
+- name: Install pip packages
+  pip:
+    name: "{{ item }}" 
+    state: present 
+  with_items:
+    - pyautogui 
+    - nagpyrc
+    - psutil
+    - python-consul

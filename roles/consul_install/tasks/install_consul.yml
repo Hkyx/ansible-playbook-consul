@@ -1,0 +1,26 @@
+---  
+- name: download consul version
+  unarchive: 
+    src: "{{ consul_version_url }}/{{ consul_version }}/consul_{{ consul_version }}_linux_amd64.zip"
+    dest: "{{ consul_path }}"
+    remote_src: yes
+    owner: consul
+    group: consul
+    mode: 0755
+  
+- name: create folder to store config file and others json
+  file:
+    path: "{{ consul_data_path }}/scripts"
+    state: directory
+    owner: consul
+    group: consul
+    mode: 0755
+
+- name: export/update de la version de consul dans le key store
+  consul_kv:
+    key: consul_check_version
+    value: "{{ consul_version }}"
+    state: present
+  delegate_to: "{{ item }}"
+  loop: "{{ groups['master']}}" 
+

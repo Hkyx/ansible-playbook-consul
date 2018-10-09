@@ -1,0 +1,32 @@
+- name: keygen config (For Encryption key)
+  shell: consul keygen
+  register: consul_keygen 
+  delegate_to: "{{ NODE_TO_DELEGATE }}"
+  ignore_errors: yes
+  when: encryption_key == False
+
+- name: config servers (will use the consul_keygen into the template)
+  template: 
+    src: master.j2
+    dest: /etc/consul.d/config.json
+    owner: consul
+    group: consul
+    mode: 0655
+  delegate_to: "{{ item }}"
+  loop: "{{ groups['master']}}"
+
+- name: config slaves hosts
+  template: 
+    src: slaves.j2
+    dest: /etc/consul.d/config.json
+    owner: consul
+    group: consul
+    mode: 0655
+  delegate_to: "{{ item }}"
+  loop: "{{ groups['slaves']}}"
+
+
+
+
+
+

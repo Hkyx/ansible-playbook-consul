@@ -1,0 +1,6 @@
+---
+- name: install dnsmaq config
+  template:
+    src: dnsmasq.j2
+    dest: /etc/dnsmasq.d/consul.conf
+    mode: 0755

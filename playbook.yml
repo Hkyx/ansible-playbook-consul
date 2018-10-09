@@ -1,0 +1,9 @@
+---
+- name: install and configure consul server and slave with Healthcheck
+  hosts: all
+  gather_facts: true
+  become: yes
+  roles:
+    - consul_install
+    - consul_checks
+...

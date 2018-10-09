@@ -1,0 +1,20 @@
+{
+    "bootstrap_expect": 3,
+    "client_addr": "0.0.0.0",
+    "datacenter": "Your_Company_Name",
+    "data_dir": "/etc/consul.d/",
+    "domain": "{{ CONSUL_DOMAIN }}",
+    "enable_script_checks": true,
+    "dns_config": {
+        "enable_truncate": true,
+        "only_passing": true
+    },
+    "encrypt": "{% if encryption_key is defined %}{{ encryption_key }}{% else %} {{consul_keygen[0].stat.exists}} {% endif %}",
+    "leave_on_terminate": false,
+    "log_level": "debug",
+    "enable_syslog": true,
+    "rejoin_after_leave": true,
+    "server": true,
+    "start_join": ["consul01", "consul02", "consul03"],
+    "ui": true
+}

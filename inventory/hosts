@@ -1,0 +1,21 @@
+[all]
+
+[all:children]
+master
+slaves
+
+[master]
+node1 ansible_user='{{ host_user }}' ansible_password='{{ host_pwd }}' ansible_become=yes
+node2 ansible_user='{{ host_user }}' ansible_password='{{ host_pwd }}' ansible_become=yes
+node3 ansible_user='{{ host_user }}' ansible_password='{{ host_pwd }}' ansible_become=yes
+
+ 
+
+[big_master]
+node1 ansible_user='{{ host_user }}' ansible_password='{{ host_pwd }}' ansible_become=yes
+
+
+[slaves]
+node04 ansible_user='{{ host_user }}' ansible_password='{{ host_pwd }}' ansible_sudo_pass='{{ host_pwd }}'
+node05 ansible_user='{{ host_user }}' ansible_password='{{ host_pwd }}' ansible_sudo_pass='{{ host_pwd }}'
+node06 ansible_user='{{ host_user }}' ansible_password='{{ host_pwd }}' ansible_sudo_pass='{{ host_pwd }}' 
